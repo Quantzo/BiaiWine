@@ -51,6 +51,97 @@ namespace BiaiWine.Model
             Sulphates = Sulphates.NormalizeMinMax(vectors.SulphatesVector.Max(), vectors.SulphatesVector.Min());
             Alcohol = Alcohol.NormalizeMinMax(vectors.AlcoholVector.Max(), vectors.AlcoholVector.Min());
         }
+
+        public double[] ToInputVector()
+        {
+            var inputVector =  new double[11];
+            inputVector[0] = FixedAcidity;
+            inputVector[1] = VolatileAcidity;
+            inputVector[2] = CitricAcid;
+            inputVector[3] = ResidualSugar;
+            inputVector[4] = Chlorides;
+            inputVector[5] = FreeSulfurDioxide;
+            inputVector[6] = TotalSulfurDioxide;
+            inputVector[7] = Density;
+            inputVector[8] = pH;
+            inputVector[9] = Sulphates;
+            inputVector[10] = Alcohol;
+
+            return inputVector;
+        }
+
+        public double[] ToOutputVector()
+        {
+            var inputVector = new double[7];
+            if (Quality == 3)
+            {
+                inputVector[0] = 1;
+            }
+            else if (Quality == 4)
+            {
+                inputVector[1] = 1;
+            }
+            else if (Quality == 5)
+            {
+                inputVector[2] = 1;
+            }
+            else if (Quality == 6)
+            {
+                inputVector[3] = 1;
+            }
+            else if (Quality == 7)
+            {
+                inputVector[4] = 1;
+            }
+            else if (Quality == 8)
+            {
+                inputVector[5] = 1;
+            }
+            else if (Quality == 9)
+            {
+                inputVector[6] = 1;
+            }
+
+            return inputVector;
+        }
+
+        public static int ToQualityFromVector(double[] vector)
+        {
+
+            var index = vector.ToList().IndexOf(vector.Max());
+
+            if (index == 0)
+            {
+                return  3;
+            }
+            else if (index == 1)
+            {
+                return 4;
+            }
+            else if (index == 2)
+            {
+                return 5;
+            }
+            else if (index == 3)
+            {
+                return 6;
+            }
+            else if (index == 4)
+            {
+                return 7;
+            }
+            else if (index == 5)
+            {
+                return 8;
+            }
+            else if (index == 6)
+            {
+                return  9;
+
+            }
+            return 0;
+        }
+
     }
 
     
