@@ -120,7 +120,7 @@ namespace BiaiWine.Model
 
             }
 
-
+            int semiCorrect = 0;
             int correct = 0;
             for (int i = 0; i < testInputs.Length; i++)
             {
@@ -129,9 +129,16 @@ namespace BiaiWine.Model
                 {
                     correct++;
                 }
+                if (Wine.ToQualityFromVector(outputValues) == Wine.ToQualityFromVector(testOutputs[i]) || (Wine.ToQualityFromVector(outputValues) == Wine.ToQualityFromVector(testOutputs[i]) - 1) || (Wine.ToQualityFromVector(outputValues) == Wine.ToQualityFromVector(testOutputs[i]) + 1))
+                {
+                    semiCorrect++;
+                }
+
+
             }
 
             Console.WriteLine("Correct " + correct + "/" + testInputs.Length + ", " + Math.Round(((double)correct / (double)testInputs.Length * 100), 2) + "%");
+            Console.WriteLine("SemiCorrect(neighboring classes) " + semiCorrect + "/" + testInputs.Length + ", " + Math.Round(((double)semiCorrect / (double)testInputs.Length * 100), 2) + "%");
         }
 
         private void DataToArrays(out double[][] inputs, out double[][] outputs, out double[][] testInputs, out double[][] testOutputs)
@@ -171,6 +178,7 @@ namespace BiaiWine.Model
             }
 
 
+            int semiCorrect = 0;
             int correct = 0;
             for (int i = 0; i < testInputs.Length; i++)
             {
@@ -179,9 +187,15 @@ namespace BiaiWine.Model
                 {
                     correct++;
                 }
+
+                if(Wine.ToQualityFromVector(outputValues) == Wine.ToQualityFromVector(testOutputs[i]) || (Wine.ToQualityFromVector(outputValues) == Wine.ToQualityFromVector(testOutputs[i]) - 1 ) || (Wine.ToQualityFromVector(outputValues) == Wine.ToQualityFromVector(testOutputs[i]) + 1))
+                {
+                    semiCorrect++;
+                }
             }
 
             Console.WriteLine("Correct " + correct + "/" + testInputs.Length + ", " + Math.Round(((double)correct / (double)testInputs.Length * 100), 2) + "%");
+            Console.WriteLine("SemiCorrect(neighboring classes) " + semiCorrect + "/" + testInputs.Length + ", " + Math.Round(((double)semiCorrect / (double)testInputs.Length * 100), 2) + "%");
 
         }
 
